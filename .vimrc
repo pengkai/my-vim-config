@@ -8,6 +8,8 @@ Plug 'mattn/emmet-vim'
 Plug 'dense-analysis/ale'
 Plug 'pengkai/VimIM'
 Plug 'Yggdroot/indentLine'
+Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 set ruler
@@ -35,15 +37,34 @@ let g:Vimim_toggle='wubi'
 "Emmet
 let g:user_emmet_leader_key='<C-A>'
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
-autocmd FileType html,css imap <tab> <plug>(emmet-expand-abbr)
+autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
+autocmd FileType html,css,javascript,javascript.jsx imap <tab> <plug>(emmet-expand-abbr)
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\}
+
 
 
 "ALE
+"let g:ale_completion_enabled = 1
+"let g:ale_linters_explicit = 1
+
+let g:ale_javascript_prettier_executable = 'prettier'
+"let g:ale_javascript_prettier_use_global = 1
 let g:ale_linters = {
-\   'javascript': ['standard']
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier', 'eslint'],
+\   'css': ['prettier'],
+\   'html': ['prettier'],
 \}
-let g:ale_fixers = {'javascript': ['standard']}
+let g:ale_fixers = {
+\  'javascript': ['prettier'],
+\  'typescript': ['prettier', 'eslint'],
+\  'css': ['prettier'],
+\  'html': ['prettier'],
+\}
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
@@ -58,6 +79,7 @@ let g:ale_pattern_options = {
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '*'
 let g:ale_sign_warning = '!'
+
 
 
 "FZF
@@ -86,6 +108,10 @@ let g:fzf_colors =
 
 "IndentLine
 let g:indentLine_enabled = 1
+
+"Typescript
+let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
+
 
 
 au BufRead,BufNewFile *.scss set filetype=css
