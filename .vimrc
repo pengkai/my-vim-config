@@ -10,6 +10,10 @@ Plug 'pengkai/VimIM'
 Plug 'Yggdroot/indentLine'
 Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'preservim/nerdtree'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 set ruler
@@ -28,7 +32,18 @@ set transparency=30
 set foldmethod=indent
 "set guifont=Source_Code_Pro:h14
 set guifont=MonoLisa:h14
+set cursorline
 colorscheme smyck
+
+"Backup
+"set patchmode=.orig
+set backup
+set writebackup
+"silent execute '!mkdir ~/.vim_backup'
+set backupdir=~/.vim_backup//
+set backupext=.bak
+":au BufWritePre * let &bex = '-' .. strftime("%Y%b%d%X") .. '.bak'
+
 
 "VimIM
 let g:Vimim_toggle='wubi'
@@ -37,15 +52,15 @@ let g:Vimim_toggle='wubi'
 "Emmet
 let g:user_emmet_leader_key='<C-A>'
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
-autocmd FileType html,css,javascript,javascript.jsx imap <tab> <plug>(emmet-expand-abbr)
+autocmd FileType html,css,javascript,javascript.jsx,typescriptreact EmmetInstall
+autocmd FileType html,css,javascript,javascript.jsx,typescriptreact imap <tab> <plug>(emmet-expand-abbr)
 let g:user_emmet_settings = {
 \  'javascript' : {
 \      'extends' : 'jsx',
 \  },
 \}
 
-
+imap   <D-/>  <plug>(emmet-toggle-comment)
 
 "ALE
 "let g:ale_completion_enabled = 1
@@ -53,18 +68,22 @@ let g:user_emmet_settings = {
 
 "let g:ale_javascript_prettier_executable = 'prettier'
 "let g:ale_javascript_prettier_use_global = 1
+"   'typescript': ['tsserver'],
+"\   'typescriptreact': ['tsserver'],
 let g:ale_linters = {
-\   'javascript': ['standard'],
-\   'typescript': ['prettier','tsserver'],
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\   'typescriptreact': ['tsserver','eslint'],
 \   'css': ['vscodecss'],
 \   'scss': ['stylelint'],
-\   'html': ['vscodehtml'],
+\   'html': ['htmlhint'],
 \}
 let g:ale_fixers = {
-\  'javascript': ['standard'],
+\  'javascript': ['prettier'],
 \  'typescript': ['prettier'],
-\  'css': ['prettier'],
-\  'scss': ['prettier'],
+\  'typescriptreact': ['prettier'],
+\  'css': ['vscodecss','prettier'],
+\  'scss': ['stylelint','prettier'],
 \  'html': ['prettier'],
 \}
 let g:ale_lint_on_save = 1
@@ -81,7 +100,6 @@ let g:ale_pattern_options = {
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '*'
 let g:ale_sign_warning = '!'
-
 
 
 "FZF
@@ -117,3 +135,14 @@ let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\
 
 
 "au BufRead,BufNewFile *.scss set filetype=css
+
+"AirlineTheme
+let g:airline_theme='ayu_mirage'
+"let g:airline_theme='biogoo'
+
+"NERDTree
+"nnoremap <leader>n :NERDTreeFocus<CR>
+"nnoremap <C-n> :NERDTree<CR>
+"nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
+"nnoremap <C-f> :NERDTreeFind<CR>
