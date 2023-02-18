@@ -1,3 +1,4 @@
+set nocp
 filetype plugin indent on
 syntax on
 
@@ -14,6 +15,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
+Plug 'github/copilot.vim'
 call plug#end()
 
 set ruler
@@ -21,6 +23,8 @@ set number
 set autochdir
 set incsearch
 set hlsearch
+set ignorecase
+set smartcase
 "set paste
 set tabstop=2
 set softtabstop=2
@@ -31,17 +35,17 @@ set guioptions=no
 set transparency=30
 set foldmethod=indent
 "set guifont=Source_Code_Pro:h14
-set guifont=MonoLisa:h14
+set guifont=MonoLisa:h16
 set cursorline
 colorscheme smyck
 
 "Backup
 "set patchmode=.orig
-set backup
-set writebackup
+"set backup
+"set writebackup
 "silent execute '!mkdir ~/.vim_backup'
-set backupdir=~/.vim_backup//
-set backupext=.bak
+"set backupdir=~/.vim_backup//
+"set backupext=.bak
 ":au BufWritePre * let &bex = '-' .. strftime("%Y%b%d%X") .. '.bak'
 
 
@@ -52,8 +56,8 @@ let g:Vimim_toggle='wubi'
 "Emmet
 let g:user_emmet_leader_key='<C-A>'
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,javascript,javascript.jsx,typescriptreact EmmetInstall
-autocmd FileType html,css,javascript,javascript.jsx,typescriptreact imap <tab> <plug>(emmet-expand-abbr)
+autocmd FileType html,css,javascript,javascript.jsx,typescriptreact,xml,scss EmmetInstall
+autocmd FileType html,css,javascript,javascript.jsx,typescriptreact,xml,scss imap <tab> <plug>(emmet-expand-abbr)
 let g:user_emmet_settings = {
 \  'javascript' : {
 \      'extends' : 'jsx',
@@ -62,8 +66,12 @@ let g:user_emmet_settings = {
 
 imap   <D-/>  <plug>(emmet-toggle-comment)
 
+
+autocmd BufNewFile,BufRead *.wxml set filetype=xml
+autocmd BufNewFile,BufRead *.wxss set filetype=css
+
 "ALE
-"let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 1
 "let g:ale_linters_explicit = 1
 
 "let g:ale_javascript_prettier_executable = 'prettier'
@@ -146,3 +154,7 @@ let g:airline_theme='ayu_mirage'
 "nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-n> :NERDTreeToggle<CR>
 "nnoremap <C-f> :NERDTreeFind<CR>
+
+#Copilot
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
