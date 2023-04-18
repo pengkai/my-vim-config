@@ -15,7 +15,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
-Plug 'github/copilot.vim'
+"Plug 'github/copilot.vim'
+Plug 'Exafunction/codeium.vim'
 call plug#end()
 
 set ruler
@@ -155,6 +156,6 @@ let g:airline_theme='ayu_mirage'
 nnoremap <C-n> :NERDTreeToggle<CR>
 "nnoremap <C-f> :NERDTreeFind<CR>
 
-#Copilot
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
+"Copilot
+"imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+"let g:copilot_no_tab_map = v:true
